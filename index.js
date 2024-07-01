@@ -19,7 +19,7 @@ app.get('/api/hello', async (req, res) => {
         console.log(city);
 
         // get location
-        const results = await fetch(`http://api.weatherapi.com/v1/curreent.json?key=${process.env.WEATHER_API_KEY}&q=${city}`)
+        const results = await fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${city}`)
         const data = await results.json();
         console.log(data);
         const temp = data.current.temp_c
