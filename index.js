@@ -9,6 +9,8 @@ app.get('/api/hello', async (req, res) => {
     const name = req.query.visitor_name
     const ip = req.socket.remoteAddress.replace("::ffff:", "")
 
+    console.log(ip);
+
     try {
         // get city
         const result = await fetch(`https://www.weatherapi.com/docs/ip.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
