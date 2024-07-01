@@ -9,15 +9,16 @@ app.get('/api/hello', async (req, res) => {
     const name = req.query.visitor_name
     const ip = req.socket.remoteAddress.replace("::ffff:", "")
 
+    
+    // get city
+    const result = await fetch(`https://www.weatherapi.com/docs/ip.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
+    const data2 = await result.json();
+    const city = data2.city
+
     // get location
-    const results = await fetch(`https://www.weatherapi.com/docs/search.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
+    const results = await fetch(`https://www.weatherapi.com/docs/search.json?key=${process.env.WEATHER_API_KEY}q=${city}`)
     const data = await results.json();
     const temp = data.current.temp_c
-
-    // get city
-    const res = await fetch(`https://www.weatherapi.com/docs/ip.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
-    const data2 = await res.json();
-    const city = data2.city
 
     return res.json({
         current_ip: ip,
