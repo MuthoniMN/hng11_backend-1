@@ -12,13 +12,17 @@ app.get('/api/hello', async (req, res) => {
     // get location
     const results = await fetch(`https://www.weatherapi.com/docs/search.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
     const data = await results.json();
-    console.log(data);
+    const temp = data.current.temp_c
 
+    // get city
+    const res = await fetch(`https://www.weatherapi.com/docs/ip.json?key=${process.env.WEATHER_API_KEY}q=${ip}`)
+    const data2 = await res.json();
+    const city = data2.city
 
     return res.json({
         current_ip: ip,
-        location: req.socket.a,
-        greeting: `Hello, ${name}!, the temperature is 11 degrees Celcius in ${req.headers.location}`
+        location: city,
+        greeting: `Hello, ${name}!, the temperature is ${temp} degrees Celcius in ${city}`
     })
 })
 
