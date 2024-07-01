@@ -7,7 +7,7 @@ const PORT = process.env.PORT
 
 app.get('/api/hello', async (req, res) => {
     const name = req.query.visitor_name
-    const ip = req.socket.remoteAddress.replace("::ffff:", "")
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
 
     console.log(ip);
 
